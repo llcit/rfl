@@ -24,7 +24,11 @@
 		</dl>		
 	</div>
 	<div class="col-md-9">
-		<iframe width="100%" height="1200px" src="{{ https_bitstream }}" style="background-color: #fff"></iframe>	
+		{%if https_bitstream %}
+		<iframe width="100%" height="1200px" src="{{ https_bitstream }}" style="background-color: #fff"></iframe>
+		{%else%}
+		<h3>This title does not appear to have a related document.</h3>
+		{%endif%}
 	</div>
 </div>		
 {% endblock content %}

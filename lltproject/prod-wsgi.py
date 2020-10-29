@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
 
 import os, sys
 # 
-sys.path.insert(0, '/pythonweb/nflrc-slrp-dev/')
+sys.path.insert(0, '/pythonapps/rfl/')
 # 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lltproject.settings.prod-nflrcslrp-hawaii-edu")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lltproject.settings.prod-nflrcrfl-hawaii-edu")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
