@@ -33,6 +33,10 @@ dt.metadata {
   padding-top: 8px;
 }
 
+.padtop {
+  margin-top: 10px;
+}
+
 .page-content-wrapper {
   padding-bottom: 50px;
 }
