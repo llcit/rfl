@@ -95,10 +95,11 @@ class ItemView(DetailView):
         context = super(ItemView, self).get_context_data(**kwargs)
         context['item_data'] = self.get_object().as_display_dict()
         bitstream = context['item_data']['bitstream'][0]
-        if not bitstream.startswith('https:'): 
-            bitstream = bitstream.replace('http://', 'https://', 1)
-        context['https_bitstream'] = bitstream
-        context['pdf_filename'] = bitstream[bitstream.rfind('/')+1:]
+        if bitstream:
+            if not bitstream.startswith('https:'): 
+                bitstream = bitstream.replace('http://', 'https://', 1)
+            context['https_bitstream'] = bitstream
+            context['pdf_filename'] = bitstream[bitstream.rfind('/')+1:]
          
     
         return context
