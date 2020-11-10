@@ -151,3 +151,5 @@ manage.py
 settings.py
 
 
+py3env/
+prod-nflrcrfl-hawaii.edu.py

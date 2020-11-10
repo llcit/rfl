@@ -11,7 +11,7 @@ import os, sys
 # 
 sys.path.insert(0, '/pythonapps/rfl/')
 # 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lltproject.settings.prod-nflrcrfl-hawaii-edu")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lltproject.prod-nflrcrfl-hawaii-edu")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
