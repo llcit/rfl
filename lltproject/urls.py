@@ -78,20 +78,20 @@ urlpatterns = [
     url(r'^keys/$',
      KeywordBrowseView.as_view(), name='keyword_browse_view'),
 
-    url(r'^staff-page/(?P<pk>\w+)$',
-     PageViewPrivate.as_view(), name='staff_page_view'),
+    # url(r'^staff-page/(?P<pk>\w+)$',
+    #  PageViewPrivate.as_view(), name='staff_page_view'),
 
     url(r'^search/$',
        SearchHaystackView.as_view(), name='haystack_search'),
 
-    url(r'^subscribe/$',
-       SubscriberCreateView.as_view(), name='subscribe'),
+    # url(r'^subscribe/$',
+    #    SubscriberCreateView.as_view(), name='subscribe'),
 
-    url(r'^subscribers/(?P<alpha_index>[A-Za-z0-9])/$',
-       SubscriberListView.as_view(), name='subscriber_list'),
+    # url(r'^subscribers/(?P<alpha_index>[A-Za-z0-9])/$',
+    #    SubscriberListView.as_view(), name='subscriber_list'),
 
-    url(r'^subscribers/download-list/$',
-       SubscriberListCsvView.as_view(), name='subscriber_list_csv'),    
+    # url(r'^subscribers/download-list/$',
+    #    SubscriberListCsvView.as_view(), name='subscriber_list_csv'),    
 
     url(r'^update-impact-factor/(?P<pk>\d+)$',
        UpdateImpactFactorView.as_view(), name='update_factor'),    
