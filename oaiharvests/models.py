@@ -200,7 +200,7 @@ class Collection(TimeStampedModel):
 
                     # Get subtopic (llt.topic)
                     try:
-                        rec_subtype = rec_data['llt.topic'][0]
+                        rec_subtype = rec_data['rfl.topic'][0]
                     except:
                         rec_subtype = ''
 
