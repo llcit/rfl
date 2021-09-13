@@ -51,19 +51,19 @@ class Community(TimeStampedModel):
             # get a record from the volume
             rec = i.list_records()[0]
             
-            # get volume number from record
+            # get volume year from record as volume number
             try:
-                # print '===>', rec, rec[2]
-                vol_num = int(rec.get_metadata_item('volume')[0][0])
+                vol_year = rec.get_metadata_item('date.issued')[0][0]
+                vol_num = vol_year[:4]
+                # vol_num = rec.get_metadata_item('volume')[0][0]
             except Exception as e:
                 vol_num = 0
-
+            
             # add volume num as dict key
             if vol_num in volumes_group:
                 volumes_group[vol_num].append(i)
             else:
                 volumes_group[vol_num] = [i]
-
         return volumes_group
 
     def aggregate_keywords(self):
