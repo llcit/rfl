@@ -12,8 +12,7 @@
 
 		{% for year, volume in volumes.items %}
 			<li>
-				<h3>{{ year }}</h3>
-				<h4><i class="fa fa-caret-right"></i> {{ volume.0.name|slice:":9"}}</h4>
+				<h4><i class="fa fa-caret-right"></i> {{ year }}</h4>
 				<ul class="list-unstyled">
 				{% for j in volume %}
 					<li><p><a href="{% url 'collection' j.identifier %}">{{ j.name }}</a></p></li>
