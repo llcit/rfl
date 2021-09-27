@@ -153,11 +153,11 @@
 		<h3 class="border-space">Previous Issues <a href="{% url 'previous_issues' %}" class="btn btn-small btn-link static_a_display">view all</a></h3>		
 	</div>			
 
-	{% for num, volume in volumes.items %}
+	{% for year, volume in volumes.items %}
 		<div class="col-md-3">
-			<a class="static_a_display" data-toggle="collapse" href="#id-{{num}}-collapse">
-				<i class="fa fa-caret-right"></i> {{ volume.0.name|slice:":9"}}</a>
-			<ul id="id-{{num}}-collapse" class="list-unstyled collapse">
+			<a class="static_a_display" data-toggle="collapse" href="#id-{{year}}-collapse">
+				<i class="fa fa-caret-right"></i> {{ year }}</a>
+			<ul id="id-{{year}}-collapse" class="list-unstyled collapse">
 			{% for j in volume %}
 				<li><p><a href="{% url 'collection' j.identifier %}" class="static_a_display">{{ j.name }}</a></p></li>
 			{% endfor %}
