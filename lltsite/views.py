@@ -33,9 +33,11 @@ class HomeView(TemplateView):
         journal = Community.objects.all()[0]
         context['keywords'] =  journal.aggregate_keywords()
         context['volumes'] = journal.list_collections_by_volume()
+        context['current_year'] = [y for y, t in context['volumes'].items()][0]
         # context['latest'] = Collection.objects.all().order_by('-name')[0]
         context['latest'] = journal.collection_set.all().order_by('name').last()
         context['title'] = context['latest'].title_tuple()
+
         context['toc'] = context['latest'].list_toc_by_page()
         try:
             context['impact_factor'] = ImpactFactor.objects.get()
