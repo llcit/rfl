@@ -87,6 +87,7 @@ class CollectionView(DetailView):
         context['toc'] = self.get_object().list_toc_by_page()
         context['size'] = len(context['toc'])
         context['title'] = self.get_object().title_tuple()
+        context['current_year'] = self.get_object().get_collection_date()
         return context
 
 
@@ -104,7 +105,7 @@ class ItemView(DetailView):
             context['https_bitstream'] = bitstream
             context['pdf_filename'] = bitstream[bitstream.rfind('/')+1:]
          
-    
+        context['current_year'] = self.get_object().hdr_setSpec.get_collection_date()
         return context
 
 

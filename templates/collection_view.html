@@ -6,7 +6,7 @@
 {% block page_header %}
 <h4><i class="fa fa-caret-left"></i> <a href="{% url 'previous_issues' %}" class="static_a_display">Previous Issues</a></h4>
 
-<h2>{{ title.0 }} {% if user.is_staff %}<small><a class="btn btn-xs btn-default" href="{% url 'oai_collection' object.pk %}">Update</a></small>{% endif %}</h2>
+<h2>{{current_year}} </br> {{ title.0 }} {% if user.is_staff %}<small><a class="btn btn-xs btn-default" href="{% url 'oai_collection' object.pk %}">Update</a></small>{% endif %}</h2>
 <h3><strong>{{ title.1 }}</strong></h3>
 {% endblock page_header %}
 

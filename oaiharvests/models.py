@@ -3,6 +3,7 @@ from django.urls import reverse
 from model_utils.models import TimeStampedModel
 from collections import OrderedDict, defaultdict
 
+from datetime import datetime
 import json, operator, os, requests, io
 import pdb #pdb.set_trace()
 
@@ -100,6 +101,16 @@ class Collection(TimeStampedModel):
             title = (a, b)
             
         return title
+
+    def get_collection_date(self):
+        try:
+            r = self.list_records()[0]
+            d = r.get_metadata_item('date.issued')[0][0]
+            return d[:4]
+            # return datetime.strptime(d, '%Y-%m-%d').year#T%H:%M:%SZ'
+        except Exception as e:
+            print(e)
+            return ''
 
     def count_records(self):
         return self.record_set.all().count()
