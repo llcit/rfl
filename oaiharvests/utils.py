@@ -55,7 +55,7 @@ def get_bitstream_url(collection, record_in):
     sickle.class_mapping['GetRecord'] = LltRecordBitstream
     record = sickle.GetRecord(metadataPrefix='ore', identifier=record_in.header.identifier)
     bitstreams = {'bitstream': None, 'bitstream_txt': None}
-
+    
     try:  
         bitstreams['bitstream'] = record.metadata['bitstream']      
         # bitstreams['bitstream'] = record.metadata['bitstream'][0].replace('+', '%20')
@@ -63,10 +63,16 @@ def get_bitstream_url(collection, record_in):
         print (e, 'Unable to construct bitstream url for', record_in.header.identifier)
 
     try:
-        bitstreams['bitstream_txt'] = record.metadata['bitstream_txt'][0].replace('+', '%20')
+        bitstreams['bitstream_txt'] = record.metadata['bitstream_txt']
+        # bitstreams['bitstream_txt'] = record.metadata['bitstream_txt'][0].replace('+', '%20')
     except Exception as e:
         print (e, 'Unable to construct bitstream_txt url for', record_in.header.identifier)
     
+    try:
+        bitstreams['bitstream_extra'] = record.metadata['bitstream_extra']
+    except Exception as e:
+        print (e, 'Unable to construct bitstream_extra urls for', record_in.header.identifier)
+
     return bitstreams
 
 def batch_harvest_articles(collection_obj):
@@ -112,6 +118,12 @@ def batch_harvest_articles(collection_obj):
             element.record = record_obj
             element.element_type = 'bitstream_txt'
             element.element_data = json.dumps([bitstreams['bitstream_txt']])
+            element.save()
+
+            element = MetadataElement()
+            element.record = record_obj
+            element.element_type = 'bitstream_extra'
+            element.element_data = json.dumps([bitstreams['bitstream_extra']])
             element.save()
         else:
             try:
@@ -220,10 +232,11 @@ class LltRecordBitstream(Record):
 
         # for debugging in shell
         self.bits = bitstream_urls
+
         
         #  clear the metadata. we're only interested in fishing out the bitstream info.
         self.metadata.clear()
-        
+        self.metadata['bitstream_extra'] = []
         for i in bitstream_urls:
             bittype = i.find(rdfnamespace+'type').get(rdfnamespace+'resource')
 
@@ -231,8 +244,11 @@ class LltRecordBitstream(Record):
                 biturl = i.get(rdfnamespace+'about')
                 if biturl[-3:] == 'pdf':
                     self.metadata['bitstream'] = [biturl]
-                else:
+                elif biturl[-7:] == 'pdf.txt':
                     self.metadata['bitstream_txt'] = [biturl]
+                else:
+                    self.metadata['bitstream_extra'].append(biturl)
+                    
         
         # for i in bitstream_urls:
         #     print i

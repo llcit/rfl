@@ -18,17 +18,22 @@
 			<dt class="metadata">Publisher</dt><dd>{% for i in item_data.publisher %}{{ i }}{% if not forloop.last %}; {% endif %}{% endfor %}</dd>
 			{% if item_data.doi %}<dt class="metadata">DOI</dt><dd>{{ item_data.doi.0 }}</dd>{% endif %}
 			<dt class="metadata">URI/DOI</dt><dd>{{ item_data.uri.0|slice:'22:' }}</dd>
-			<dt class="metadata">PDF</dt><dd><a href="{{ https_bitstream }}">{{ pdf_filename }}</a></dd>
+			<dt class="metadata">PDF</dt>
+			{% for b, f in bitstreams %}
+			<dd><a href="{{ b }}">{{ f }}</a></dd>
+			{% endfor %}
+			{% if bitstream_extras %}<dt class="metadata">Supplemental File(s)</dt>{% endif %}
+			{% for b, f in bitstream_extras %}
+				<dd><a href="{{ b }}">{{ f }}</a></dd>
+			{% endfor %}
+
 			<dt class="metadata">Citation</dt><dd>{{ item_data.citation.0 }}</dd>
 			<dt class="metadata">Record Details</dt><dd><a href="{% url 'item_full' object.pk %}">Full Record</a></dd>
 		</dl>		
 	</div>
 	<div class="col-md-9">
-		{%if https_bitstream %}
-		<iframe width="100%" height="1200px" src="{{ https_bitstream }}" style="background-color: #fff"></iframe>
-		{%else%}
-		<h3>This title does not appear to have a related document.</h3>
-		{%endif%}
+		<iframe width="100%" height="1200px" src="{{ bitstreams.0.0 }}" style="background-color: #fff"></iframe>
+
 	</div>
 </div>		
 {% endblock content %}
