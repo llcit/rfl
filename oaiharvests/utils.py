@@ -56,8 +56,9 @@ def get_bitstream_url(collection, record_in):
     record = sickle.GetRecord(metadataPrefix='ore', identifier=record_in.header.identifier)
     bitstreams = {'bitstream': None, 'bitstream_txt': None}
 
-    try:        
-        bitstreams['bitstream'] = record.metadata['bitstream'][0].replace('+', '%20')
+    try:  
+        bitstreams['bitstream'] = record.metadata['bitstream']      
+        # bitstreams['bitstream'] = record.metadata['bitstream'][0].replace('+', '%20')
     except Exception as e:
         print (e, 'Unable to construct bitstream url for', record_in.header.identifier)
 
