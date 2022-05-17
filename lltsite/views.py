@@ -103,15 +103,20 @@ class ItemView(DetailView):
         #   related to introduced modification to collect bitstreams as la ist 
         #   in utils/get_bitstream_url()
 
+
         context['bitstreams'] = []
-        if not isinstance(bitstream, list):
-            bitstream = [bitstream]    
-        
-        for bit_url in bitstream:
-            if not bit_url.startswith('https:'): 
-                bit_url = bit_url.replace('http://', 'https://', 1)
-            bit_url_name = bit_url[bit_url.rfind('/')+1:]
-            context['bitstreams'].append((bit_url, bit_url_name))
+        try:
+            if not isinstance(bitstream, list):
+                bitstream = [bitstream]    
+            
+            if bitstream:
+                for bit_url in bitstream:
+                    if not bit_url.startswith('https:'): 
+                        bit_url = bit_url.replace('http://', 'https://', 1)
+                    bit_url_name = bit_url[bit_url.rfind('/')+1:]
+                    context['bitstreams'].append((bit_url, bit_url_name))
+        except:
+            pass
 
         # if bitstream:
         #     if not bitstream.startswith('https:'): 
