@@ -50,11 +50,15 @@ def get_bitstream_url(collection, record_in):
     """ Harvests an href pointing to the bitstream urls for the record in repository.
     E.g., https://scholarspace.manoa.hawaii.edu/bitstream/10125/25006/1/editor.pdf
     """
-
-    sickle = Sickle(collection.community.repository.base_url)        
-    sickle.class_mapping['GetRecord'] = LltRecordBitstream
-    record = sickle.GetRecord(metadataPrefix='ore', identifier=record_in.header.identifier)
-    bitstreams = {'bitstream': None, 'bitstream_txt': None}
+    bitstreams = {'bitstream': None, 'bitstream_txt': None, 'bitstream_extra': None}
+    try:
+        sickle = Sickle(collection.community.repository.base_url)        
+        sickle.class_mapping['GetRecord'] = LltRecordBitstream_v2
+        record = sickle.GetRecord(metadataPrefix='ore', identifier=record_in.header.identifier)
+        print (record.metadata)
+    except Exception as e:
+        print (e)
+        return bitstreams
     
     try:  
         bitstreams['bitstream'] = record.metadata['bitstream']      
