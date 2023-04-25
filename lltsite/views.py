@@ -4,6 +4,7 @@ from collections import Counter
 import urllib
 from urllib.request import urlopen
 import csv
+import math
 from datetime import datetime
 
 from django.shortcuts import get_object_or_404, redirect
@@ -37,6 +38,7 @@ class HomeView(TemplateView):
         # context['latest'] = Collection.objects.all().order_by('-name')[0]
         context['latest'] = journal.collection_set.all().order_by('name').last()
         context['title'] = context['latest'].title_tuple()
+        context['col_break'] = context['latest'].count_records()/2
 
         context['toc'] = context['latest'].list_toc_by_page()
         try:

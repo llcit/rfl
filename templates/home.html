@@ -23,6 +23,7 @@
 				<h3>{{current_year}} </br> <a href="{% url 'collection' latest.identifier %}" class="static_a_display" style="color: #000">{{ title.0 }} <sup><span class="badge">newest</span></sup></a> {% if user.is_staff %}<small><a class="btn btn-xs btn-default" href="{% url 'oai_collection' latest.pk %}">Update</a></small>{% endif %}</h3>
 				<h4> <strong>{{ title.1 }}</strong></h4>
 			</div>
+			
 			<div class="col-md-6">
 			{% if toc.Preface %}<h4 class="border-space">&nbsp;</h4>{% endif %}
 
