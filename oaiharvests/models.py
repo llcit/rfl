@@ -119,6 +119,7 @@ class Collection(TimeStampedModel):
         return self.record_set.all()
 
     def list_records_by_page_and_volume(self):
+        romans = {'i': 1, 'ii': 2, 'iii': 3, 'iv': 4, 'v': 5, 'vi': 6, 'vii': 7, 'viii': 8, 'ix': 9, 'x': 10}
         records = []
         for i in self.record_set.all():
             record_data = i.as_display_dict()
@@ -127,7 +128,8 @@ class Collection(TimeStampedModel):
             try:
                 t.append(int(record_data['startingpage'][0]))
             except Exception as e:
-                t.append(0)
+                p = record_data['uri'][0]
+                t.append(int(p[-5:]))
 
             try:
                 t.append(int(record_data['endingpage'][0]))
@@ -207,7 +209,10 @@ class Collection(TimeStampedModel):
                         pass  # Problem fetching abstract but default already set to empty.
                     
                     # Fetch page number from list if not zero
-                    if rec[1]: toc_item[3] = rec[1]  
+                    if rec[1]: 
+                        toc_item[3] = rec[1]
+                    else:
+                        toc_item[3] = rec[1]
 
                     # Get subtopic (llt.topic)
                     try:
