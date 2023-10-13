@@ -112,6 +112,25 @@ class Collection(TimeStampedModel):
             print(e)
             return ''
 
+    def deroman(self, rstr=''):
+        rstr = rstr.lower()
+        roman = {'i': 1, 'v': 5, 'x': 10, 'l': 50, 'c': 100}
+        num = 0
+        i = 0
+        while i < len(rstr):
+            a = roman[rstr[i]]
+            b = 0
+            try:
+                b = roman[rstr[i+1]]
+                if b > a:
+                    a = b - a
+                    i = i + 1
+            except:
+                pass        
+            num = num + a
+            i = i + 1
+        return num
+
     def count_records(self):
         return self.record_set.all().count()
 
@@ -119,22 +138,25 @@ class Collection(TimeStampedModel):
         return self.record_set.all()
 
     def list_records_by_page_and_volume(self):
-        romans = {'i': 1, 'ii': 2, 'iii': 3, 'iv': 4, 'v': 5, 'vi': 6, 'vii': 7, 'viii': 8, 'ix': 9, 'x': 10}
         records = []
         for i in self.record_set.all():
             record_data = i.as_display_dict()
             t = [i]
             
             try:
-                t.append(int(record_data['startingpage'][0]))
+                p = record_data['startingpage'][0]
+                try:
+                    t.append(int(p))
+                except Exception as e:
+                    t.append(self.deroman(p))               
             except Exception as e:
-                p = record_data['uri'][0]
-                t.append(int(p[-5:]))
-
+                t.append(0)       
+                
             try:
                 t.append(int(record_data['endingpage'][0]))
             except Exception as e:
                 t.append(0)
+                
 
             try:
                 t.append(record_data['volume'][0])
