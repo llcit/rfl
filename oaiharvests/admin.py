@@ -45,7 +45,7 @@ class RecordAdmin(admin.ModelAdmin):
 
 class MetadataElementAdmin(admin.ModelAdmin):
     list_display = ('record', 'element_type', 'element_data',)
-    list_filter = ('record',)
+    list_filter = ('record__hdr_setSpec',)
 
 
 admin.site.register(Repository)
