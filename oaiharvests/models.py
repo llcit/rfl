@@ -167,6 +167,27 @@ class Collection(TimeStampedModel):
 
         return sorted(records, key=lambda rec: rec[1])
 
+    def list_records_by_date_and_volume(self):
+        records = []
+        for i in self.record_set.all():
+            record_data = i.as_display_dict()
+            t = [i]
+            try:
+                d = record_data['issued'][0]
+                t.append(datetime.strptime(d, '%Y-%m-%d'))
+                
+            except Exception as e:
+                t.append(0)
+
+            try:
+                t.append(record_data['volume'][0])
+            except Exception as e:
+                t.append('0')
+            
+            records.append(t)
+
+        return sorted(records, reverse=True, key=lambda rec: rec[1])
+
     def list_toc(self):
         toc = defaultdict(list)
         for i in self.list_records():
