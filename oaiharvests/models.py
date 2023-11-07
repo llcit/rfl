@@ -107,7 +107,7 @@ class Collection(TimeStampedModel):
             r = self.list_records()[0]
             d = r.get_metadata_item('date.issued')[0][0]
             return d[:4]
-            # return datetime.strptime(d, '%Y-%m-%d').year#T%H:%M:%SZ'
+            # return datetime.strptime(d, '%Y-%m-%d')#T%H:%M:%SZ'
         except Exception as e:
             print(e)
             return ''
@@ -184,7 +184,7 @@ class Collection(TimeStampedModel):
             except Exception as e:
                 t.append('0')
             
-            records.append(t)
+            records.append(t)        
 
         return sorted(records, reverse=True, key=lambda rec: rec[1])
 
@@ -217,8 +217,18 @@ class Collection(TimeStampedModel):
         """
         toc = defaultdict()
         # toc = {}
+        d = self.get_collection_date()
+        is_cap = int(d) > 2022
 
-        for rec in self.list_records_by_page_and_volume():  # Returns a list of [ [REC OBJ, PAGE START, PAGE END, VOL NUM], ... ]
+        if is_cap:
+            toc_item_list = self.list_records_by_date_and_volume()
+        else:
+            toc_item_list = self.list_records_by_page_and_volume()
+
+        # if self.special_issue:
+        #     toc_item_list = self.list_records_by_page_and_volume()
+
+        for rec in toc_item_list:  # Returns a list of [ [REC OBJ, PAGE START, PAGE END, VOL NUM], ... ]
             rec_obj = rec[0]       # Record object
             rec_data = rec_obj.as_dict()  # Fetch the record data
             # print rec, rec_data['type'], rec_data['llt.topic'] or None
@@ -252,10 +262,23 @@ class Collection(TimeStampedModel):
                         pass  # Problem fetching abstract but default already set to empty.
                     
                     # Fetch page number from list if not zero
-                    if rec[1]: 
-                        toc_item[3] = rec[1]
-                    else:
-                        toc_item[3] = rec[1]
+                    if rec[1]: toc_item[3] = rec[1]
+
+                   
+                    # Get date issued
+                    try:
+
+                        if is_cap:
+                            d = datetime.strptime(rec_data['date.issued'][0], '%Y-%m-%d')
+                            toc_item[3] = d.strftime('%b %-d')
+                        # else:
+                            
+                        #     toc_item[3] = toc_item[3]
+                        print (is_cap, toc_item)
+                        # if self.special_issue:
+                        #     toc_item[4] = toc_item[3]
+                    except:
+                        pass
 
                     # Get subtopic (llt.topic)
                     try:
@@ -278,6 +301,8 @@ class Collection(TimeStampedModel):
                         toc[rec_type][rec_subtype] = {'editors': [], 'records': []}
                         toc[rec_type][rec_subtype]['editors'].extend(editors)
                         toc[rec_type][rec_subtype]['records'].append(toc_item)
+
+                    
                         
             except Exception as e:
                 pass  # record must not have a type specified so proceed quietly

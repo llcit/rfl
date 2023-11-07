@@ -24,7 +24,7 @@
 				<h4> <strong>{{ title.1 }}</strong></h4>
 			</div>
 			
-			<div class="col-md-6">
+			<div class="col-md-12">
 			{% if toc.Preface %}<h4 class="border-space">&nbsp;</h4>{% endif %}
 
 			{% for sub_type, data in toc.Preface.items %} 
@@ -78,7 +78,7 @@
 				{% endfor %}
 			{% endfor %}
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-12">
 			{% if toc.Discussion %}<h4 class="border-space">Discussions</h4>{% endif %}
 			{% for sub_type, data in toc.Discussion.items %} 
 				<strong>{{ sub_type }}</strong>
