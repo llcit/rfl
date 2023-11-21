@@ -5,20 +5,15 @@
 <head>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,400;0,700;1,400&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
     <!-- Font Awesome -->
     <link href="{% static 'css/fontawesome-free-6.1.1-web/css/all.css' %}" rel="stylesheet">
 
-
-
-    <!-- <script src="https://use.fontawesome.com/0d555f8c65.js"></script>-->
-
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" crossorigin="anonymous">
-
-    <!-- Rich Text Editor -->
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" crossorigin="anonymous"> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
        
     <!-- Site-wide css -->
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
@@ -33,93 +28,71 @@
 <body>
 
     <!-- Fixed navbar content -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid" style="height: 120px">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                
-                <ul class="nav navbar-nav">
-                    <li><a class="navbar-brand" href="{% url 'home' %}"><img alt="Reading as a Foreign Language Logo" height="100px" style="margin-top: 0px; margin-left:0px" src="{% static 'img/RFLbanner-transparent.gif' %}"></a> </li>
-                    <li>
-                        <!-- <p alt="Reading as a Foreign Language">A refereed international online journal of issues in foreign language reading and literacy</p> -->
-                        
-                    </li>  
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-md navbar-light sticky-lg-top bg-rfl-yellow  mb-0 p-0">
+        <div class="container-md pt-5" style="display: flex; align-items: flex-start" >
+            <a class="navbar-brand" href="{% url 'home' %}" style="padding-top: .08rem"><img alt="Reading as a Foreign Language Logo" style="height: 100px;" src="{% static 'img/RFLbanner-transparent.gif' %}">
+            </a>
+            <div class="collapse navbar-collapse navbar-right p-0 justify-content-end" id="main-menu">
+                <div class="navbar-nav site-navigator">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link" href="{% url 'page_slug_view' 'about' %}">About</a>
+                    <a class="nav-link" href="{% url 'page_slug_view' 'people' %}">People</a>
+                    <a class="nav-link" href="{% url 'page_slug_view' 'contact' %}">Contact</a>
+                </div> 
+            
+                <div class="navbar-nav navbar-right p-0 pb-2">
+                    <form class="d-flex rounded-0 search-form" method="get" action="{% url 'haystack_search' %}">
+                        <input type="search" size="30" class="form-control rounded-0" placeholder="Search" name="q" value="{{query}}">
+                        <button type="submit" class="btn btn-sm text-secondary"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </div><!-- /.navbar-collapse -->
+            <button class="navbar-toggler justify-content-end" type="button" data-bs-toggle="collapse" data-bs-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button> 
 
-            <div class="collapse navbar-collapse" id="main-menu" style="">
-
-
-                <form class="navbar-form navbar-right" method="get" action="{% url 'haystack_search' %}">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search for..." name="q" value="{{query}}">
-                    </div>
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                </form> 
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'page_slug_view' 'about' %}">About</a></li>
-                    <li><a href="{% url 'page_slug_view' 'people' %}">People</a></li>
-                    <li><a href="{% url 'page_slug_view' 'contact' %}">Contact</a></li>
-                </ul>                
-            </div><!-- /.navbar-collapse -->             
-        </div><!-- /.container-fluid -->
+                     
+        </div><!-- /.container-md -->
     </nav>
     <!-- End navbar content -->
     
     
 
     <!-- Page content -->
-    <div class="container-fluid">
-        {% block submenu %}<div class="row"><div class="col-md-12 submenu"></div></div>{% endblock %} 
-        
-        <div class="row padtop">
-            <div class="col-md-12">{% block page_header %}{% endblock page_header %}
-            {% if messages %}
-                {% for message in messages %}
-                <div class="{% if message.tags %}bg-{{ message.tags }} {% endif %}alert alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                     <p>{{ message }}</p>
-                </div>
-                {% endfor %}
-            {% endif %}
-            </div>
-        </div>
-    
-        <div class="page-content-wrapper">{% block content %} {% endblock content %}</div>
+    <div class="container-md">
+        {% block submenu %}<div class="row"><div class="col-md submenu"></div></div>{% endblock %} 
+        <div class="row">
+            <div class="col-md mb-4 border-5 border-bottom-5 border-secondary">{% block page_header %}{% endblock page_header %}
+        </div>    
+        {% block content %} {% endblock content %}
     </div>
     <!-- End page content -->
 
 
     <!-- Footer -->
-    <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-        <div id="footer" class="container-fluid text-muted">
-            <div style="font-size: .8em;">ISSN 1539-0578 <br><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a> Works published here are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</div>
-                    
-            Web application programming and design: Richard Medina - Site maintained by the <a href="https://clt.manoa.hawaii.edu" target="_blank">Center for Language & Technology</a>, University of Hawai‘i at Mānoa 
-            {% if user.is_authenticated %}
-                <a href="{% url 'logout_user' %}"><i class="fa fa-unlock"></i></a>
-            {% else %}
-                <a href="{% url 'login_user' %}?next={{ request.path }}"><i class="fa fa-lock"></i></a>
-            {% endif %}
-            <span>v.2</span>
+    <div class="fixed-bottom bg-rfl-yellow" style="border-top: solid 1px #ccc;" role="navigation">
+        <div id="footer" class="container-md border-start-0 border-top-1 border-end-0 border-bottom-0 border-secondary rounded-0" style="font-size: .8em;">
+            <div class="row pt-2">
+                <div class="col-md-10 text-center">
+                    <div>ISSN 1539-0578</div>
+                    <div><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a> Works published here are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+                    </div>
+                    <div>  
+                        Web application programming and design: Richard Medina - Site maintained by the <a href="https://clt.manoa.hawaii.edu" target="_blank">Center for Language & Technology</a>, University of Hawai‘i at Mānoa 
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout_user' %}"><i class="fa fa-unlock"></i></a>
+                        {% else %}
+                            <a href="{% url 'login_user' %}?next={{ request.path }}"><i class="fa fa-lock"></i></a>
+                        {% endif %}
+                        <span>v.2</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
   
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     
-    <script src="{% static 'js/bootstrap.min.js' %}" crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 
     <!-- Placeholder for page level javascript includes -->

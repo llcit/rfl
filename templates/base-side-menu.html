@@ -1,7 +1,7 @@
 <!-- base-side-menu.html -->
 {% load staticfiles %}
 <div class="row">
-    <div class="col-md-12" style="">
+    <div class="col-md-12">
         <p>
             <ul class="list-unstyled">
                 <li><a href="{% url 'page_slug_view' 'submit-manuscript' %}" class="btn btn-md btn-link static_a_display">{% if curr_page == 7 %}<i class="fa fa-circle green"></i>{% endif %} Submit a Manuscript</a></li>
@@ -15,12 +15,13 @@
         <div style="border-bottom: 2px solid #333;"></div>
         
 
-        <p style="font-size: 1em; background-color: rgb(245, 245, 220); padding: 0.9em;">Reading in a Foreign Language is published by the <a href="https://nflrc.hawaii.edu/" target="_blank">National Foreign Language Resource Center (NFLRC)</a> at the University of Hawai'i at Mānoa and is currently indexed in <a href="https://mjl.clarivate.com/search-results?issn=1539-0578&hide_exact_match_fl=true&utm_source=mjl&utm_medium=share-by-link&utm_campaign=journal-profile-share-this-journal" target="_blank">Web of Science</a> and in <a href="https://www.scopus.com/sourceid/21101107533" target="_blank">Scopus.</a></p>
+        <p style="font-size: 1em; background-color: rgb(245, 245, 220); padding: 0.9em;">{{ byline.content|safe}}<p><a href="{% url 'page_slug_view' 'about' %}" class=""></a></p>
         
         <div style="border-bottom: 2px solid #333;"></div>
         
-        <p style="font-size: 1em; background-color: rgb(245, 245, 220); padding: 0.9em;">We would like to invite you to check out RFL’s sister journal, Language Learning & Technology, which seeks to disseminate research to foreign and second language educators in the US and around the world on issues related to technology and language education. LLT articles are published throughout the year as they become ready. In addition, Special Issues are published 1 to 2 times a year. LLT is available free of charge to all readers and subscribers. Both RFL and LLT are published by the NFLRC.</p>
+        <p style="font-size: 1em; background-color: rgb(245, 245, 220); padding: 0.9em;">{{ info.content|safe }}</p>
         
         <div style="border-bottom: 2px solid #333;"></div>
     </div>
 </div>
+

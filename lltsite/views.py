@@ -25,7 +25,19 @@ from .mixins import RecordSearchMixin
 from .forms import CreateSubscriberForm, UpdateImpactFactorForm, PageUpdateForm
 
 
-class HomeView(TemplateView):
+class BaseSideMenuMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(BaseSideMenuMixin, self).get_context_data(**kwargs)
+        try:
+            context['byline'] = StoryPage.objects.get(slug='byline')
+            context['info'] = StoryPage.objects.get(slug='info')
+        except:
+            context['byline'] = 'Custom content expected here.'
+            context['info'] = 'Custom content expected here.'
+
+        return context
+
+class HomeView(BaseSideMenuMixin, TemplateView):
     template_name = 'home.html'
     queryset = None
 
@@ -41,6 +53,11 @@ class HomeView(TemplateView):
         context['col_break'] = context['latest'].count_records()/2
 
         context['toc'] = context['latest'].list_toc_by_page()
+
+        articles = context['toc']['Article'].items()
+        article_data = next(iter(articles))[1]
+        context['latest_article'] = article_data['records'][0]
+
         try:
             context['impact_factor'] = ImpactFactor.objects.get()
         except:
@@ -48,7 +65,7 @@ class HomeView(TemplateView):
         return context
 
 
-class PreviousIssuesView(TemplateView):
+class PreviousIssuesView(BaseSideMenuMixin, TemplateView):
     template_name = 'previous_issues.html'
 
     def get_context_data(self, **kwargs):
@@ -157,7 +174,7 @@ class ItemViewFull(DetailView):
         return context
 
 
-class PageView(DetailView):
+class PageView(BaseSideMenuMixin, DetailView):
     model = StoryPage
     template_name = 'page_view.html'
     context_object_name = 'page'

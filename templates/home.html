@@ -5,7 +5,7 @@
 
 {% block page_header %}
 <div class="row">
-	<div class="col-md-9">
+	<div class="col-md-12">
 		<h5>Greta Gorsuch & Jing Zhou, Editors</h5>
 		<p class="small">Supported by the Center for Language & Technology and the National Foreign Language Resource Center at the University of Hawai‘i at Mānoa</p>	
 	</div>
@@ -18,19 +18,39 @@
 <div class="row">
 	<!-- LEFT PANEL -->
 	<div class="col-md-9">
-		<div class="row">
-			<div class="col-md-12">
-				<h3>{{current_year}} </br> <a href="{% url 'collection' latest.identifier %}" class="static_a_display" style="color: #000">{{ title.0 }} <sup><span class="badge">newest</span></sup></a> {% if user.is_staff %}<small><a class="btn btn-xs btn-default" href="{% url 'oai_collection' latest.pk %}">Update</a></small>{% endif %}</h3>
-				<h4> <strong>{{ title.1 }}</strong></h4>
-			</div>
+		{{ toc.Article.0 }}
+
+		    <!-- Latest article display -->
+            {% if latest_article %}
+            <div class="row mb-3">
+            <div class="col-md pb-2">
+                <div class="card border-0 border-start-0 border-top-0 border-end-0 border-bottom-0 rounded-0 bg-rfl-green text-dark" style="border-color: #E9CC81;height: 100%;">
+                    <div class="card-body ">
+                        <span class="badge bg-rfl-yellow text-dark rounded-0">Latest Article</span>
+                        <div class="card-title fw-bolder">{{ latest_article.0 }}</div>
+                        <div class="card-text oai-micro-fs-8">
+                            {% for j in latest_article.1 %} 
+                                {{ j }}{% if not forloop.last %}{% if forloop.revcounter0 > 1 %}, {% else  %} & {% endif %}{% endif %}
+                            {% endfor %}
+                        </div>                          
+                    </div>
+                    <div class="card-footer bg-rfl-green border-0 oai-micro-fs-8">{{ latest_article.3 }}</div>
+                    <a href="{{ latest_article.0.get_absolute_url }}" class="stretched-link"></a>               
+                </div>                         
+            </div>
+        	</div>
+        	{% endif %}
 			
-			<div class="col-md-12">
+			<h3>{{current_year}} </br> <a href="{% url 'collection' latest.identifier %}" class="static_a_display" style="color: #000">{{ title.0 }}</a> {% if user.is_staff %}<small><a class="btn btn-xs btn-default" href="{% url 'oai_collection' latest.pk %}">Update</a></small>{% endif %}</h3>
+			<h4> <strong>{{ title.1 }}</strong></h4>
+			
+			<div>
 			{% if toc.Preface %}<h4 class="border-space">&nbsp;</h4>{% endif %}
 
 			{% for sub_type, data in toc.Preface.items %} 
 				
 				{% for doc in data.records %}
-					<div class="row">
+					<div class="row mb-3">
 						<div class="col-md-11"> 
 							<a href="{{ doc.0.get_absolute_url }}" class="static_a_display">
 								<strong>{{ doc.0 }}</strong>
@@ -68,7 +88,7 @@
 					<div class="row">
 						<div class="{% if sub_type %}col-md-9 col-md-offset-1 {% else %}col-md-11{% endif %}"> 
 							<a href="{{ doc.0.get_absolute_url }}" class="static_a_display">
-								<strong>{{ doc.0 }}</strong>
+								<strong>{{ doc.0 }}{% if forloop.first %} <sup><span class="badge bg-rfl-green text-dark">newest</span></sup>{% endif %}</strong>
 								<p class="small">{% for j in doc.1%} <em>{{ j }}{% if not forloop.last %}; {% endif %}</em> {% endfor %}</p>
 								<p class="small">{{ doc.2.0|truncatewords:20|truncatewords:20 }} </p>
 							</a>
@@ -78,7 +98,7 @@
 				{% endfor %}
 			{% endfor %}
 			</div>
-			<div class="col-md-12">
+			<div>
 			{% if toc.Discussion %}<h4 class="border-space">Discussions</h4>{% endif %}
 			{% for sub_type, data in toc.Discussion.items %} 
 				<strong>{{ sub_type }}</strong>
@@ -135,7 +155,6 @@
 				{% endfor %}
 			{% endfor %}
 			</div>
-		</div>
 	</div>
 	
 	<!-- RIGHT PANEL -->
@@ -156,7 +175,7 @@
 
 	{% for year, volume in volumes.items %}
 		<div class="col-md-3">
-			<a class="static_a_display" data-toggle="collapse" href="#id-{{year}}-collapse">
+			<a class="static_a_display vol-list-toggler" data-bs-toggle="collapse" href="#id-{{year}}-collapse">
 				<i class="fa fa-caret-right"></i> {{ year }}</a>
 			<ul id="id-{{year}}-collapse" class="list-unstyled collapse">
 			{% for j in volume %}
@@ -168,5 +187,31 @@
 </div>
 	
 {% endblock content %}
+
+{% block js_script %} 
+<script type="text/javascript">
+    // script to control visibility of vol groups when toggled.
+    
+    const togglebtns = document.querySelectorAll('.vol-list-toggler')
+    togglebtns.forEach(function(toggler) {
+        toggler.addEventListener('click', function(e) {
+            if (document.querySelector('.fa-caret-down')) {
+                document.querySelector('.fa-caret-down').classList.replace("fa-caret-down", "fa-caret-right");
+            }
+
+            var curr_toggle_icon = this.querySelector('i');
+            if (!this.classList.contains('collapsed')) {
+                curr_toggle_icon.classList.replace("fa-caret-right", "fa-caret-down");
+            }
+
+            const vol_listings = document.querySelectorAll('.show');
+            vol_listings.forEach(function(listing) {
+                listing.classList.toggle('show');                
+            });
+        });
+    });
+
+</script>
+{% endblock js_script %}
 		
 

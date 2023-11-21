@@ -271,12 +271,6 @@ class Collection(TimeStampedModel):
                         if is_cap:
                             d = datetime.strptime(rec_data['date.issued'][0], '%Y-%m-%d')
                             toc_item[3] = d.strftime('%b %-d')
-                        # else:
-                            
-                        #     toc_item[3] = toc_item[3]
-                        print (is_cap, toc_item)
-                        # if self.special_issue:
-                        #     toc_item[4] = toc_item[3]
                     except:
                         pass
 
