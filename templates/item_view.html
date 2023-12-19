@@ -8,7 +8,7 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-3">
-		<h3><span><sup class="badge badge-default">{{item_data.type.0}}</sup></span> {{ object }}</h3>
+		<h3><span><sup class="badge bg-rfl-green text-dark">{{item_data.type.0}}</sup></span> {{ object }}</h3>
 		
 		<dl>
 			<dt class="metadata">Author{{ item_data.author|pluralize }}</dt><dd>{% for i in item_data.author %}{{ i }}{% if not forloop.last %}; {% endif %}{% endfor %}</dt></dd>
