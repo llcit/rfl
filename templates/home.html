@@ -23,10 +23,11 @@
 		    <!-- Latest article display -->
             {% if latest_article %}
             <div class="row mb-3">
-            <div class="col-md pb-2">
+            <div class="col-6 pb-2">
                 <div class="card border-0 border-start-0 border-top-0 border-end-0 border-bottom-0 rounded-0 bg-rfl-green text-dark" style="border-color: #E9CC81;height: 100%;">
+                	
                     <div class="card-body ">
-                        <span class="badge bg-rfl-yellow text-dark rounded-0">Newest Article</span>
+                    	<div><span class="badge bg-rfl-yellow text-dark rounded-0 mb-2">Newest Article</span></div>
                         <div class="card-title fw-bolder">{{ latest_article.0 }}</div>
                         <div class="card-text oai-micro-fs-8">
                             {% for j in latest_article.1 %} 
