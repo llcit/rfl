@@ -8,20 +8,48 @@
                 <li><a href="{% url 'page_slug_view' 'submission-guidelines' %}" class="btn btn-md btn-link static_a_display">{% if curr_page == 4 %}<i class="fa fa-circle green"></i>{% endif %} Submission Guidelines</a></li>
                 <li><a href="{% url 'page_slug_view' 'subscribe' %}" class="btn btn-md btn-link static_a_display">{% if curr_page == 8 %}<i class="fa fa-circle green"></i>{% endif %} Subscribe</a></li>
                 <li><a href="{% url 'page_slug_view' 'ethics-statement' %}" class="btn btn-md btn-link static_a_display">{% if curr_page == 9 %}<i class="fa fa-circle green"></i>{% endif %} Ethics Statement</a></li>
+                <li><a href="{% url 'page_slug_view' 'copy-edit-volunteer-program' %}" class="btn btn-md btn-link static_a_display">{% if curr_page == 10 %}<i class="fa fa-circle green"></i>{% endif %} <strong>Volunteer to Copy Edit!</strong></a></li>
+
                 <!-- <li><a href="{% url 'page_slug_view' 'permissions' %}" class="btn btn-md btn-link static_a_display">{% if curr_page == 5 %}<i class="fa fa-circle lt-gray"></i>{% endif %} Permissions</a></li>	 -->
             </ul>
         </p>
         
-        <div style="border-bottom: 2px solid #333;"></div>
+        <div style="border-bottom: 1px solid #333;"></div>
+        
+        <p style="font-size: 1em; background-color: rgb(245, 245, 220); padding: 0.9em;">{{ byline.content|safe}}<p><a href="{% url 'page_slug_view' 'about' %}" class=""></a></p>
+
+        <div style="font-size: 1em; background-color: #A9DCBA; padding: 0.9em; margin-top: 1.0em;">
+            <p><strong>News</strong></p>
+            <p><a href="{% url 'page_slug_view' 'copy-edit-volunteer-program' %}" class="static_a_display">Volunteer Copy Editing Program</a></p>
+
+            <p><a href="{% url 'page_slug_view' 'cap-announcement' %}" class="static_a_display">RFL Transitioning to Continuous Article Publication in 2024</a></p>
+        </div>
+
+        <div style="font-size: 1em; background-color: #A9DCBA; padding: 0.9em; margin-top: 1.0em;">
+            <p><strong>Open Calls</strong></p>
+           
+            <p><a href="https://scholarspace.manoa.hawaii.edu/bitstreams/4ca6883d-6dac-4165-89b2-1a0394e503ab/download" class="static_a_display">Special Issue Proposals</a></p>
+            <p><a href="https://nflrc.hawaii.edu/rfl/item/586" class="static_a_display">Reviews</a></p>
+            <p><a href="https://nflrc.hawaii.edu/rfl/item/580" class="static_a_display">Readings on L2 Reading</a></p>
+        </ul>
+        </div>
         
 
-        <p style="font-size: 1em; background-color: rgb(245, 245, 220); padding: 0.9em;">{{ byline.content|safe}}<p><a href="{% url 'page_slug_view' 'about' %}" class=""></a></p>
-        
-        <div style="border-bottom: 2px solid #333;"></div>
+        <div style="font-size: 1em; background-color: #A9DCBA; padding: 0.9em; margin-top: 1.0em;">
+            
+            <p><strong>Continuous Call for Reviews</strong>, Teresa Maria Wlosowicz, <em>RFL</em> Reviews Editor, <a href="mailto:melomane.plurilingue@gmail.com">melomane.plurilingue@gmail.com</a></p>
+            
+            <p>Grabe, W. &amp; Yamashita, J. (2022). <em>Reading in a second language: Moving from theory to practice (2nd ed.)</em>. Cambridge: Cambridge University Press.</p>
+            <p>Kusiak, M. (2013). <em>Reading comprehension in Polish and English: Evidence from an introspective study</em>. Cracow: Jagiellonian University Press.</p>
+            <p>Pae, H.K. (2020). <em>Script effects as the hidden drive of the mind, cognition, and culture</em>. With a Foreword by Charles A. Perfetti. Cham, Switzerland: Springer.</p>
+            <p>Shiotsu, T. (2010). <em>Components of L2 reading: Linguistic and processing factors in the reading test performances of Japanese EFL learners</em>. Cambridge: Cambridge University Press.&nbsp;</p>
+            <p>A free E-book copy will be made available to the reviewer of the books listed above. The call is primarily open to academics, researchers in areas related to foreign language reading (applied linguistics, pedagogy, psychology, etc.), teachers and students (both doctoral and graduate students), however, the list is not exhaustive.</p>     
+        </div>
         
         <p style="font-size: 1em; background-color: rgb(245, 245, 220); padding: 0.9em;">{{ info.content|safe }}</p>
         
         <div style="border-bottom: 2px solid #333;"></div>
+
     </div>
 </div>
 
