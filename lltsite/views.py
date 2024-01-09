@@ -33,11 +33,13 @@ class BaseSideMenuMixin(object):
             context['call_l2_reading'] = StoryPage.objects.get(slug='call-l2-reading')
             context['call_reviews'] = StoryPage.objects.get(slug='call-reviews')
             context['call_open'] = StoryPage.objects.get(slug='call-open')
+            context['announcements'] = StoryPage.objects.get(slug='announcements')
         except:
             context['publisher_info'] = 'Custom content expected here.'
             context['call_l2_reading'] = 'Custom content expected here.'
             context['call_reviews'] = 'Custom content expected here.'
             context['call_open'] = 'Custom content expected here.'
+            context['announcements'] = 'Custom content expected here.'
 
         return context
 
