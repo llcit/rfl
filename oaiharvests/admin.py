@@ -22,30 +22,32 @@ class CommunityInlineCollectionsAdmin(admin.StackedInline):
     extra = 0
 
 class CommunityAdmin(admin.ModelAdmin):
-	inlines = [
-	        CommunityInlineCollectionsAdmin,
-	    ]
+    inlines = [
+            CommunityInlineCollectionsAdmin,
+        ]
 
 class CollectionAdmin(admin.ModelAdmin):
     list_display = ('pk', 'identifier', 'name', 'community',)
     list_display_links = ('pk',)
     list_editable = ['identifier', 'name', 'community',]
-	
+    
     inlines = [
-	        CollectionInlineRecordsAdmin,
-	    ]
+            CollectionInlineRecordsAdmin,
+        ]
 
 class RecordAdmin(admin.ModelAdmin):
-	inlines = [
-	        RecordInlineElementsAdmin,
-	    ]
-	list_display = ('identifier', 'hdr_setSpec', 'hdr_datestamp',)
-	readonly_fields = ('identifier', 'hdr_setSpec', 'hdr_datestamp',)
-	list_filter = ('hdr_setSpec',)
+    inlines = [
+            RecordInlineElementsAdmin,
+        ]
+    list_display = ('identifier', 'hdr_setSpec', 'hdr_datestamp',)
+    readonly_fields = ('identifier', 'hdr_setSpec', 'hdr_datestamp',)
+    list_editable = ['hdr_setSpec',]
+    list_filter = ('hdr_setSpec',)
 
 class MetadataElementAdmin(admin.ModelAdmin):
     list_display = ('record', 'element_type', 'element_data',)
     list_filter = ('record__hdr_setSpec',)
+    list_editable = ['element_data',]
 
 
 admin.site.register(Repository)

@@ -29,11 +29,15 @@ class BaseSideMenuMixin(object):
     def get_context_data(self, **kwargs):
         context = super(BaseSideMenuMixin, self).get_context_data(**kwargs)
         try:
-            context['byline'] = StoryPage.objects.get(slug='byline')
-            context['info'] = StoryPage.objects.get(slug='info')
+            context['publisher_info'] = StoryPage.objects.get(slug='publisher-info')
+            context['call_l2_reading'] = StoryPage.objects.get(slug='call-l2-reading')
+            context['call_reviews'] = StoryPage.objects.get(slug='call-reviews')
+            context['call_open'] = StoryPage.objects.get(slug='call-open')
         except:
-            context['byline'] = 'Custom content expected here.'
-            context['info'] = 'Custom content expected here.'
+            context['publisher_info'] = 'Custom content expected here.'
+            context['call_l2_reading'] = 'Custom content expected here.'
+            context['call_reviews'] = 'Custom content expected here.'
+            context['call_open'] = 'Custom content expected here.'
 
         return context
 
