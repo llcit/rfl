@@ -4,7 +4,7 @@
 
 {% block page_title %}Collections{% endblock page_title %}
 
-{% block page_header %} <h3><span><sup class="badge badge-default">Collection</sup></span></h3> {% endblock page_header %}
+{% block page_header %} {% endblock page_header %}
 
 {% block content %}
 	
@@ -13,9 +13,9 @@
 	    <h5{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h5>
 	    {% endfor %}
 	{% endif %}
-
+	<h3><span><sup class="badge bg-rfl-green text-dark">Collection</sup></span></h3> 
 	<div>
-		<a id="harvest_btn" class="btn btn-md btn-default" href="#">Harvest</a> <span>last harvested on {{ object.last_harvest }}</span> 		
+		<a id="harvest_btn" class="btn btn-warning" href="#">Harvest</a> <span>last harvested on {{ object.last_harvest }}</span> 		
 	</div>
 
 	<div id="modalwait" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
