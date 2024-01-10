@@ -46,7 +46,9 @@
 			<h4> <strong>{{ title.1 }}</strong></h4>
 			
 			<div>
+			
 			{{ empty_set }}
+			
 			{% if toc.Preface %}<h4 class="border-space">&nbsp;</h4>{% endif %}
 
 			{% for sub_type, data in toc.Preface.items %} 
@@ -90,7 +92,7 @@
 					<div class="row">
 						<div class="{% if sub_type %}col-9 offset-1 {% else %}col-10{% endif %}"> 
 							<a href="{{ doc.0.get_absolute_url }}" class="static_a_display">
-								<strong>{{ doc.0 }}{% if forloop.first %} <sup><span class="badge bg-rfl-green text-dark">newest</span></sup>{% endif %}</strong>
+								<strong>{{ doc.0 }}{% comment "Enable after first article in 2024" %}{% if forloop.first %} <sup><span class="badge bg-rfl-green text-dark">newest</span></sup>{% endif %}{% endcomment %}</strong>
 								<p class="small">{% for j in doc.1%} <em>{{ j }}{% if not forloop.last %}; {% endif %}</em> {% endfor %}</p>
 								<p class="small">{{ doc.2.0|truncatewords:20|truncatewords:20 }} </p>
 							</a>

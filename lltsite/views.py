@@ -68,7 +68,7 @@ class HomeView(BaseSideMenuMixin, TemplateView):
         try:
             articles = context['toc']['Article'].items()
             article_data = next(iter(articles))[1]
-            context['latest_article'] = article_data['records'][0]
+            # context['latest_article'] = article_data['records'][0] # ENABLE AFTER FIRST ARTICLE POSTED IN 2024
         except:
             context['empty_set'] = 'There are no records currently available for this issue.'
 
