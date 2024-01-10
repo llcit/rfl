@@ -23,22 +23,22 @@
 		    <!-- Latest article display -->
             {% if latest_article %}
             <div class="row mb-3">
-            <div class="col-6 pb-2">
-                <div class="card border-0 border-start-0 border-top-0 border-end-0 border-bottom-0 rounded-0 bg-rfl-green text-dark" style="border-color: #E9CC81;height: 100%;">
-                	
-                    <div class="card-body ">
-                    	<div><span class="badge bg-rfl-yellow text-dark rounded-0 mb-2">Newest Article</span></div>
-                        <div class="card-title fw-bolder">{{ latest_article.0 }}</div>
-                        <div class="card-text oai-micro-fs-8">
-                            {% for j in latest_article.1 %} 
-                                {{ j }}{% if not forloop.last %}{% if forloop.revcounter0 > 1 %}, {% else  %} & {% endif %}{% endif %}
-                            {% endfor %}
-                        </div>                          
-                    </div>
-                    <div class="card-footer bg-rfl-green border-0 oai-micro-fs-8">{{ latest_article.3 }}</div>
-                    <a href="{{ latest_article.0.get_absolute_url }}" class="stretched-link"></a>               
-                </div>                         
-            </div>
+	            <div class="col-6 pb-2">
+	                <div class="card border-0 border-start-0 border-top-0 border-end-0 border-bottom-0 rounded-0 bg-rfl-green text-dark" style="border-color: #E9CC81;height: 100%;">
+	                	
+	                    <div class="card-body ">
+	                    	<div><span class="badge bg-rfl-yellow text-dark rounded-0 mb-2">Newest Article</span></div>
+	                        <div class="card-title fw-bolder">{{ latest_article.0 }}</div>
+	                        <div class="card-text oai-micro-fs-8">
+	                            {% for j in latest_article.1 %} 
+	                                {{ j }}{% if not forloop.last %}{% if forloop.revcounter0 > 1 %}, {% else  %} & {% endif %}{% endif %}
+	                            {% endfor %}
+	                        </div>                          
+	                    </div>
+	                    <div class="card-footer bg-rfl-green border-0 oai-micro-fs-8">{{ latest_article.3 }}</div>
+	                    <a href="{{ latest_article.0.get_absolute_url }}" class="stretched-link"></a>               
+	                </div>                         
+	            </div>
         	</div>
         	{% endif %}
 			
@@ -46,6 +46,7 @@
 			<h4> <strong>{{ title.1 }}</strong></h4>
 			
 			<div>
+			{{ empty_set }}
 			{% if toc.Preface %}<h4 class="border-space">&nbsp;</h4>{% endif %}
 
 			{% for sub_type, data in toc.Preface.items %} 
@@ -159,6 +160,25 @@
 				{% endfor %}
 			{% endfor %}
 			</div>
+
+			<!-- PREVIOUS ISSUE TABLE -->
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="border-space">Previous Issues <a href="{% url 'previous_issues' %}" class="btn btn-small btn-link static_a_display">view all</a></h3>		
+				</div>			
+
+				{% for year, volume in volumes.items %}
+					<div class="col-md-3">
+						<a class="static_a_display vol-list-toggler" data-bs-toggle="collapse" href="#id-{{year}}-collapse">
+							<i class="fa fa-caret-right"></i> {{ year }}</a>
+						<ul id="id-{{year}}-collapse" class="list-unstyled collapse">
+						{% for j in volume %}
+							<li><p><a href="{% url 'collection' j.identifier %}" class="static_a_display">{{ j.name }}</a></p></li>
+						{% endfor %}
+						</ul>
+					</div>
+				{% endfor %}					
+			</div>
 	</div>
 	
 	<!-- RIGHT PANEL -->
@@ -169,25 +189,6 @@
 <!-- ROW 2 -->
 <div class="row">
 
-</div>
-
-<!-- ROW 3 -->
-<div class="row">
-	<div class="col-md-12">
-		<h3 class="border-space">Previous Issues <a href="{% url 'previous_issues' %}" class="btn btn-small btn-link static_a_display">view all</a></h3>		
-	</div>			
-
-	{% for year, volume in volumes.items %}
-		<div class="col-md-3">
-			<a class="static_a_display vol-list-toggler" data-bs-toggle="collapse" href="#id-{{year}}-collapse">
-				<i class="fa fa-caret-right"></i> {{ year }}</a>
-			<ul id="id-{{year}}-collapse" class="list-unstyled collapse">
-			{% for j in volume %}
-				<li><p><a href="{% url 'collection' j.identifier %}" class="static_a_display">{{ j.name }}</a></p></li>
-			{% endfor %}
-			</ul>
-		</div>
-	{% endfor %}					
 </div>
 	
 {% endblock content %}

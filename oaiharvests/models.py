@@ -48,23 +48,28 @@ class Community(TimeStampedModel):
         # TODO: return collections grouped by volume number.
         volumes_group = OrderedDict()
         volumes = self.collection_set.all().order_by('-name')
+        
         for i in volumes:
             # get a record from the volume
-            rec = i.list_records()[0]
-            
-            # get volume year from record as volume number
             try:
-                vol_year = rec.get_metadata_item('date.issued')[0][0]
-                vol_num = vol_year[:4]
-                # vol_num = rec.get_metadata_item('volume')[0][0]
-            except Exception as e:
-                vol_num = 0
-            
-            # add volume num as dict key
-            if vol_num in volumes_group:
-                volumes_group[vol_num].append(i)
-            else:
-                volumes_group[vol_num] = [i]
+                rec = i.list_records()[0]
+                
+                # get volume year from record as volume number
+                try:
+                    vol_year = rec.get_metadata_item('date.issued')[0][0]
+                    vol_num = vol_year[:4]
+                    # vol_num = rec.get_metadata_item('volume')[0][0]
+                except Exception as e:
+                    vol_num = 0
+                
+                # add volume num as dict key
+                if vol_num in volumes_group:
+                    volumes_group[vol_num].append(i)
+                else:
+                    volumes_group[vol_num] = [i]
+            except:
+                pass
+    
         return volumes_group
 
     def aggregate_keywords(self):
@@ -109,8 +114,7 @@ class Collection(TimeStampedModel):
             return d[:4]
             # return datetime.strptime(d, '%Y-%m-%d')#T%H:%M:%SZ'
         except Exception as e:
-            print(e)
-            return ''
+            return str(datetime.now().year)
 
     def deroman(self, rstr=''):
         rstr = rstr.lower()

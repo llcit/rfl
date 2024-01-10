@@ -52,17 +52,25 @@ class HomeView(BaseSideMenuMixin, TemplateView):
         journal = Community.objects.all()[0]
         context['keywords'] =  journal.aggregate_keywords()
         context['volumes'] = journal.list_collections_by_volume()
-        context['current_year'] = [y for y, t in context['volumes'].items()][0]
-        # context['latest'] = Collection.objects.all().order_by('-name')[0]
         context['latest'] = journal.collection_set.all().order_by('name').last()
+    
+        try:
+            context['current_year'] = context['latest'].get_collection_date()
+        except:
+            context['current_year'] = datetime.now().year
+
+        # context['latest'] = Collection.objects.all().order_by('-name')[0]
+        
         context['title'] = context['latest'].title_tuple()
         context['col_break'] = context['latest'].count_records()/2
-
         context['toc'] = context['latest'].list_toc_by_page()
 
-        articles = context['toc']['Article'].items()
-        article_data = next(iter(articles))[1]
-        context['latest_article'] = article_data['records'][0]
+        try:
+            articles = context['toc']['Article'].items()
+            article_data = next(iter(articles))[1]
+            context['latest_article'] = article_data['records'][0]
+        except:
+            context['empty_set'] = 'There are no records currently available for this issue.'
 
         try:
             context['impact_factor'] = ImpactFactor.objects.get()
