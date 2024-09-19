@@ -14,6 +14,9 @@ class RecordIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Record
 
+    def get_updated_field(self):
+        return 'modified'
+        
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
         return self.get_model().objects.all()	
