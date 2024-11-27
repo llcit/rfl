@@ -5,7 +5,7 @@ from collections import OrderedDict, defaultdict
 
 from datetime import datetime
 import json, operator, os, requests, io
-import pdb #pdb.set_trace()
+# import pdb #pdb.set_trace()
 
 
 """Metadata element dispay sets"""
