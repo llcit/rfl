@@ -6,7 +6,7 @@ from .models import StoryPage, Subscriber, ImpactFactor
 class ExtraMedia:
     js = [
         '/static/nflrc-slrp/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
-        '/static/nflrc-slrp/js/tinymce_setup.js',
+        '/static/js/tinymce_setup.js',
     ]
 
 class StoryPageAdmin(admin.ModelAdmin):

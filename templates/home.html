@@ -20,6 +20,31 @@
 	<div class="col-md-9">
 		{{ toc.Article.0 }}
 
+			{% if special_issue %}
+            <div class="col-md-12 pb-2">
+                <!-- Special Issue Book cover -->
+                <div class="card border-0 rounded-0 bg-rfl-green lh-sm" style="height: 100%;">
+                    <div class="card-body">
+                        <span class="badge text-light rounded-0 mb-1" style="background-color: darkgreen;">{{ special_issue_year }} Special Issue</span> 
+                        <br>
+                        <div class="oai-micro-fs-6 pb-2"><br></div>
+                        <h4 style="height: 50%" class="card-title"><strong>{{special_issue.name}}</strong></h4>
+                        {{special_issue.description}}
+                    </div>        
+                    <div class="card-body oai-micro-fs-8">
+                            {% if special_issue.edited_by %}
+                                <i>Edited by</i> <br>{% for e in special_issue_editors %}{{e}}<br>{% endfor %} 
+                            {% endif %}     
+                    </div>
+                    <a href="{% url 'collection' special_issue.pk %}" class="stretched-link"></a>
+                    
+                </div>
+                <!-- <div>
+                    <span class="badge llt-burgundy rounded-0 oai-micro-fs-8"><a href="http://localhost:8000/media/voices-from-llt/" class="llt-burgundy"><i class="fa-solid fa-podcast fa-xl"></i></a></span>
+                </div> -->
+            </div>
+            {% endif %}
+
 		    <!-- Latest article display -->
             {% if latest_article %}
             <div class="row mb-3">

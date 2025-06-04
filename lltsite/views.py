@@ -54,7 +54,18 @@ class HomeView(BaseSideMenuMixin, TemplateView):
         journal = Community.objects.all()[0]
         context['keywords'] =  journal.aggregate_keywords()
         context['volumes'] = journal.list_collections_by_volume()
-        context['latest'] = journal.collection_set.all().order_by('name').last()
+        # Special Issue case
+        issues = journal.collection_set.all().order_by('-name')
+        if issues[0].special_issue:
+            try:
+                context['special_issue'] = issues[0]
+                context['special_issue_editors'] = context['special_issue'].edited_by.split(',')
+                context['special_issue_year'] = context['special_issue'].get_collection_date()
+            except:
+                pass
+            context['latest'] = issues[1]
+        else:
+            context['latest'] = issues[0]
     
         try:
             context['current_year'] = context['latest'].get_collection_date()
