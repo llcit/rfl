@@ -232,8 +232,9 @@ class Collection(TimeStampedModel):
         else:
             toc_item_list = self.list_records_by_page_and_volume()
 
-        # if self.special_issue:
-        #     toc_item_list = self.list_records_by_page_and_volume()
+        if self.special_issue:
+            toc_item_list = self.list_records_by_page_and_volume()
+
 
         for rec in toc_item_list:  # Returns a list of [ [REC OBJ, PAGE START, PAGE END, VOL NUM], ... ]
             rec_obj = rec[0]       # Record object
@@ -274,12 +275,15 @@ class Collection(TimeStampedModel):
                    
                     # Get date issued
                     try:
-
-                        if is_cap:
+                        if self.special_issue:
+                            toc_item[4] = toc_item[3]
+                        elif is_cap:
                             d = datetime.strptime(rec_data['date.issued'][0], '%Y-%m-%d')
                             toc_item[3] = d.strftime('%b %-d')
+                        
+
                     except:
-                        pass
+                        print(toc_item)
 
                     # Get subtopic (llt.topic)
                     try:
