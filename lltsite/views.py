@@ -134,6 +134,8 @@ class CollectionView(DetailView):
         context['size'] = len(context['toc'])
         context['title'] = self.get_object().title_tuple()
         context['current_year'] = self.get_object().get_collection_date()
+        context['special_issue'] = self.get_object().special_issue
+        context['issue'] = self.get_object()
         return context
 
 

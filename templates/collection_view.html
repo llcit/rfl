@@ -31,23 +31,10 @@
 				{% endfor %}
 			{% endfor %}
 
-			{% if toc.Special %}<h4 class="border-space">Special Issue</h4>{% endif %}
-			{% for sub_type, data in toc.Special.items %} 
-				<strong>{{ sub_type }}</strong>
-				<p class="small">{% if data.editors %}Edited by{% endif %} {% for j in data.editors%} <em>{{ j }}{% if not forloop.last %}; {% endif %}</em> {% endfor %}</p>
-				{% for doc in data.records %}
-					<div class="row">
-						<div class="{% if sub_type %}col-9 offset-1 {% else %}col-10{% endif %}"> 
-							<a href="{{ doc.0.get_absolute_url }}" class="static_a_display">
-								<strong>{{ doc.0 }}</strong>
-								<p class="small">{% for j in doc.1%} <em>{{ j }}{% if not forloop.last %}; {% endif %}</em> {% endfor %}</p>
-								<p class="small">{{ doc.2.0|truncatewords:20 }} </p>
-							</a>
-						</div>
-						<div class="col-2 oai-micro-fs-8"><em>{{ doc.3 }}</em></div>
-					</div>
-				{% endfor %}
-			{% endfor %}
+			{% if special_issue %}
+				<h5>Edited by <em>{{issue.edited_by}}</em></h5>
+				<p>{{issue.description}}</p>
+			{% endif %}
 
 			{% if toc.Article %}<h4 class="border-space">Regular Articles</h4>{% endif %}
 			{% for sub_type, data in toc.Article.items %} 

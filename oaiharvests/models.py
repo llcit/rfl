@@ -280,10 +280,8 @@ class Collection(TimeStampedModel):
                         elif is_cap:
                             d = datetime.strptime(rec_data['date.issued'][0], '%Y-%m-%d')
                             toc_item[3] = d.strftime('%b %-d')
-                        
-
                     except:
-                        print(toc_item)
+                        pass
 
                     # Get subtopic (llt.topic)
                     try:
